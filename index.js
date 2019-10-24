@@ -4,6 +4,11 @@ const logger = require('./logger');
 
 const app = express();
 
+app.use(express.static('public'));
+app.use(express.json());
+app.use(express.urlencoded());
+
+
 app.use(logger);
 
 app.use(express.static('public'));
@@ -13,7 +18,7 @@ app.use(express.static('public'));
 });
 */
 
-const keywords = [
+let keywords = [
     {
         'id': '01',
         'desc': 'nodejs',
@@ -58,7 +63,8 @@ app.get('/keywords',(req,res)=>{
         keywords.splice(limitInt);
         return res.send(keywords);
     }
-    res.send('Enviar Limite');
+    //res.send('Enviar Limite');
+    res.send(keywords);
 });
 
 app.get('/keywords/:id',(req,res)=>{
@@ -77,6 +83,53 @@ app.get('/keywords/:id',(req,res)=>{
     */
 
     res.status(404).send(`${id} not found`);
+});
+
+app.post('/keywords',(req,res)=>{
+    
+    const obj = req.body;
+ 
+    if(obj){
+
+        keywords.push(obj);
+        return res.status(201).send(obj);
+    }
+
+    res.status(404).send(`${id} not found`);
+});
+
+app.put('/keywords/:id',(req,res)=>{
+    
+    const idp = req.params.id;
+    const objb = req.body;
+    const obj = keywords.find(obj => obj.id === idp);
+    
+    if(obj && objb){
+        const index = keywords.findIndex((obj => obj.id == idp));
+        console.log(index);
+        const {id,desc,url} = objb;
+       keywords[index].id = id;
+       keywords[index].desc = desc;
+       keywords[index].url = url;
+        return res.send(keywords);
+    }
+
+    res.status(404).send(`${idp} not found`);
+});
+
+app.delete('/keywords/:id',(req,res)=>{
+    
+    const idp = req.params.id;
+    const objb = req.body;
+    const obj = keywords.find(obj => obj.id === idp);
+    if(obj){
+        const index = keywords.findIndex((obj => obj.id == idp));
+        keywords.splice(index,1);
+        //return res.send(keywords);
+        return res.status(201).send(keywords);
+    }
+
+    res.status(404).send(`${idp} not found`);
 });
 
 app.listen(3000,()=>{
