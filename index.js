@@ -1,17 +1,16 @@
 const express = require('express');
-const logger = require('./logger');
-const keywordsRouter = require('./keywords');
-
+const middleware = require('./middleware');
+const routes = require('./routes');
 const app = express();
 
-app.use(express.static('public'));
-app.use(express.json());
-app.use(express.urlencoded());
+const database = require('./database');
 
+middleware(app);
 
-app.use(logger);
+routes(app);
 
-app.use('/keywords',keywordsRouter);
+database.connect();
+
 
 app.listen(3000,()=>{
     console.log('http://localhost:3000');

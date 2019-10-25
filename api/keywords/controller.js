@@ -1,7 +1,5 @@
-const express = require('express');
-const router = express.Router();
-
-
+const keywords = require('./model');
+/*
 let keywords = [
     {
         'id': '01',
@@ -34,36 +32,27 @@ let keywords = [
         'url':'http://java.org'
     },
 ];
-
-router.route('/')
-    .get((req,res)=>{
-        const limit = req.query.limit;
-        //const keywords = ['nodejs','express','javascript','react','angular','java','php'];
-        
-        
-        const limitInt = parseInt(limit);
-    
-        if (limitInt){
-            keywords.splice(limitInt);
-            return res.send(keywords);
-        }
-        //res.send('Enviar Limite');
-        res.send(keywords);
-    })
-    .post((req,res)=>{
+*/
+const search = (req,res)=>{
+       keywords.find((err,keywords)=>{
+           if(err){
+               return res.status(500).send(err);
+           }
+           res.send(keywords);
+       })
+    };
+const create = (req,res)=>{
         const obj = req.body;
+        keywords.create(obj,(err,persistedObj)=>{
+            if(err){
+                return res.status(500).send(err);
+            }
+            res.send(persistedObj);
+        })
  
-        if(obj){
-    
-            keywords.push(obj);
-            return res.status(201).send(obj);
-        }
-    
-        res.status(404).send(`${id} not found`);
-    })
+    };
 
-router.route('/:id')
-    .get((req,res)=>{
+const readById = (req,res)=>{
         const id = req.params.id;
         //const keywords = ['nodejs','express','javascript','react','angular','java','php'];
         const obj = keywords.find(obj => obj.id === id);
@@ -72,8 +61,8 @@ router.route('/:id')
         }
     
         res.status(404).send(`${id} not found`);
-    })
-    .put((req,res)=>{
+    };
+const update = (req,res)=>{
         const idp = req.params.id;
         const objb = req.body;
         const obj = keywords.find(obj => obj.id === idp);
@@ -89,8 +78,8 @@ router.route('/:id')
         }
     
         res.status(404).send(`${idp} not found`);
-    })
-    .delete((req,res)=>{
+    };
+const remove = (req,res)=>{
         const idp = req.params.id;
         const objb = req.body;
         const obj = keywords.find(obj => obj.id === idp);
@@ -102,8 +91,14 @@ router.route('/:id')
         }
     
         res.status(404).send(`${idp} not found`);
-    })
+    };
 
 
 
-module.exports = router;
+module.exports = {
+    search,
+    create,
+    readById,
+    update,
+    remove
+}
