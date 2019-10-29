@@ -33,64 +33,71 @@ let keywords = [
     },
 ];
 */
-const search = (req,res)=>{
-       keywords.find((err,keywords)=>{
-           if(err){
-               return res.status(500).send(err);
-           }
-           res.send(keywords);
-       })
+const search = async (req,res)=>{
+    /*keywords.find()
+    .then(keywords=> res.send(keywords))
+    .catch(err=> res.status(500).send(err));
+    */
+
+    //es lo mismo //
+
+        try {
+            const response = await keywords.find();
+            res.send(response);
+        } catch (error) {
+            res.status(500).send(error);
+        }
+
     };
-const create = (req,res)=>{
+
+
+const create = async (req,res)=>{
         const obj = req.body;
-        keywords.create(obj,(err,persistedObj)=>{
-            if(err){
-                return res.status(500).send(err);
-            }
-            res.send(persistedObj);
-        })
+
+        try {
+            const response = await keywords.create(obj);
+            res.status(201).send(response);
+        } catch (error) {
+            res.status(500).send(error);
+        }
  
     };
 
-const readById = (req,res)=>{
+const readById = async (req,res)=>{
         const id = req.params.id;
         //const keywords = ['nodejs','express','javascript','react','angular','java','php'];
-        const obj = keywords.find(obj => obj.id === id);
-        if(obj){
-            return res.send(obj);
+        try {
+            const response = await keywords.findById(id);
+            res.send(response);
+        } catch (error) {
+            res.status(404).send(`${id} not found`);
         }
     
-        res.status(404).send(`${id} not found`);
-    };
-const update = (req,res)=>{
-        const idp = req.params.id;
-        const objb = req.body;
-        const obj = keywords.find(obj => obj.id === idp);
         
-        if(obj && objb){
-            const index = keywords.findIndex((obj => obj.id == idp));
-            console.log(index);
-            const {id,desc,url} = objb;
-           keywords[index].id = id;
-           keywords[index].desc = desc;
-           keywords[index].url = url;
-            return res.send(keywords);
-        }
-    
-        res.status(404).send(`${idp} not found`);
     };
-const remove = (req,res)=>{
+const update = async(req,res)=>{
         const idp = req.params.id;
         const objb = req.body;
-        const obj = keywords.find(obj => obj.id === idp);
-        if(obj){
-            const index = keywords.findIndex((obj => obj.id == idp));
-            keywords.splice(index,1);
-            //return res.send(keywords);
-            return res.status(201).send(keywords);
+        //const obj = keywords.find(obj => obj.id === idp);
+        
+        try {
+            const response = await keywords.findByIdAndUpdate(idp,objb);
+            res.status(204).send(response);
+        } catch (error) {
+            res.status(404).send(`${id} not found`);
+        }
+
+    };
+const remove = async (req,res)=>{
+        const idp = req.params.id;
+        try {
+            const response = await keywords.findByIdAndDelete(idp);
+            res.send(204).send(response);
+        } catch (error) {
+            res.status(404).send(`${id} not found`);
         }
     
-        res.status(404).send(`${idp} not found`);
+      
     };
 
 
