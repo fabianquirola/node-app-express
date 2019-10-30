@@ -1,9 +1,7 @@
-const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../users/model');
 
 const SECRET_KEY = 'SECRET_KEY';
-const HASH_SALT = 10;
 const TOKEN_EXPIRES_IN = '2h';
 
 async function isLoggedIn(req,res,next){
@@ -33,17 +31,9 @@ function createToken(user){
 
     return jwt.sign(payload,'SECRET_KEY',{expiresIn:TOKEN_EXPIRES_IN});
 }
-async function createHash(text){
-    return await bcrypt.hash(user.password,HASH_SALT);
-}
 
-async function compareHash(text,hash){
-    return await bcrypt.compare(text,hash);
-}
 
 module.exports = {
     isLoggedIn,
-    createToken,
-    createHash,
-    compareHash
+    createToken
 }

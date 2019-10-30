@@ -1,4 +1,5 @@
 const keywords = require('./model');
+const Service = require('./service');
 /*
 let keywords = [
     {
@@ -42,7 +43,7 @@ const search = async (req,res)=>{
     //es lo mismo //
 
         try {
-            const response = await keywords.find();
+            const response = await Service.search();
             res.send(response);
         } catch (error) {
             res.status(500).send(error);

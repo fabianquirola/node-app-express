@@ -5,6 +5,16 @@ const app = express();
 
 const database = require('./database');
 
+app.set('view engine','ejs');
+
+app.get('/about',(req,res)=>{
+    res.render('about',
+    {
+        message:'Hello EJS',
+        values:['node','javascript','ejs']
+})
+})
+
 middleware(app);
 
 routes(app);

@@ -1,6 +1,7 @@
 const User = require('./model');
 const bcrypt = require('bcrypt');
-const {createHash,createToken,compareHash} = require('../auth')
+const {createToken} = require('../auth');
+const {createHash,compareHash} = require('../crypt');
 const search = async (req,res)=>{
     /*User.find()
     .then(User=> res.send(User))
