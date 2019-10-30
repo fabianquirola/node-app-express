@@ -4,19 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>About</title>
+    <link rel="stylesheet" href="/styles.css">
+    <title>Keywords</title>
 </head>
 <body>
-    <h1>about</h1>
+        <%- include('../partials/header',{title:'KW'})%>
+    <h1>Keywords Page</h1>
     <p>
         <%=message%>
     </p>
     <ul>
         <%values.forEach(element => {%>
-            <li><%=element%></li>
+            <li><%=element.desc%></li>
           
         <%});%>
     </ul>
-    
+    <%- include('../partials/footer',{text:'KW'})%>
 </body>
 </html>

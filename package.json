@@ -4,7 +4,9 @@
   "description": "express",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev":"cross-env PORT=3001 SECRET_KEY=SECRET_KEY nodemon index.js",
+    "start":"nodemon index.js"
   },
   "author": "Fabian Quirola",
   "license": "ISC",
@@ -15,5 +17,8 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.7.7",
     "uuid": "^3.3.3"
+  },
+  "devDependencies": {
+    "cross-env": "^6.0.3"
   }
 }
