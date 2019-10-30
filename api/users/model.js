@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
+const {createHash} = require('../auth');
 
 const schema = new mongoose.Schema({
     name: {type:String,required:true},
@@ -12,7 +12,7 @@ schema.pre('save',async function(next){
     if(!user.isModified('password')){
         return next();
     }
-    const hashedPassword = await bcrypt.hash(user.password,10);
+    const hashedPassword = await createHash(user.password);
     user.password = hashedPassword;
     next();
 })

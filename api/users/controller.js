@@ -1,6 +1,6 @@
 const User = require('./model');
 const bcrypt = require('bcrypt');
-const jwt = require('jsonwebtoken')
+const {createHash,createToken,compareHash} = require('../auth')
 const search = async (req,res)=>{
     /*User.find()
     .then(User=> res.send(User))
@@ -85,21 +85,17 @@ const login = async (req,res)=>{
             const user = await User.findOne({email}).select(['email','password']);
             //const hashedPassword = await bcrypt.hash(password,10);
             if(!user){
-                res.status(400).send('User not found');
+                res.status(400).send('Invalid email or password');
             }
 
-            const verify = await bcrypt.compare(password,user.password);
+            const verify = await compareHash(password,user.password);
 
             if(!verify){
                 res.status(400).send('Invalid email or password');
             }
-            //const token = '12345';
-            const payload = {
-                _id : user._id,
-                email:user.email
-            };
 
-            const token = jwt.sign(payload,'SECRET_KEY',{expiresIn:'2h'});
+
+            const token = createToken(user);
 
             res.send({token});
 
