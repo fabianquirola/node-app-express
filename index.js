@@ -1,4 +1,4 @@
-const dotenv = require('dotenv');
+const config = require('config');
 const express = require('express');
 const middleware = require('./middleware');
 const routes = require('./routes');
@@ -6,14 +6,12 @@ const app = express();
 
 const database = require('./database');
 
-dotenv.config();
-
-const PORT = process.env.PORT || 3000;
-
-const HOST = process.env.HOST || 'localhost';
 
 
+const {host,port} = config.get('server');
 
+
+app.set('view engine','ejs');
 middleware(app);
 
 routes(app);
@@ -21,6 +19,6 @@ routes(app);
 database.connect();
 
 
-app.listen(PORT, HOST, ()=>{
-    console.log(`http://${HOST}:${PORT}`);
+app.listen(port, host, ()=>{
+    console.log(`http://${host}:${port}`);
 });

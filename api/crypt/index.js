@@ -1,9 +1,10 @@
+const config = require('config');
 const bcrypt = require('bcrypt');
 
-const HASH_SALT = process.env.HASH_SALT || 10;
+const hashSalt = config.get('crypt.hashSalt');
 
 async function createHash(text){
-    return await bcrypt.hash(text,HASH_SALT);
+    return await bcrypt.hash(text,hashSalt);
 }
 
 async function compareHash(text,hash){

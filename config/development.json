@@ -1,0 +1,6 @@
+{
+    "auth":{
+        "secretKey":"SECRET_KEY",
+        "tokenExpiresIn":"1h"
+    }
+}

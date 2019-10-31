@@ -1,8 +1,12 @@
+const config = require('config');
 const mongoose = require('mongoose');
+
+
+const {uri,options} = config.get('database');
+
 const connect = () =>{
     mongoose.connect(
-        'mongodb://localhost:27017/data',
-        {useNewUrlParser:true,poolSize:10}
+        uri,options
     );
     const conn = mongoose.connection;
     conn.on('error',error =>{

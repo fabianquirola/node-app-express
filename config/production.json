@@ -1,0 +1,11 @@
+{
+    "auth":{
+        "secretKey":"SECRET_KEY",
+        "tokenExpiresIn":"4h"
+    },
+    "database":{
+        "options":{
+            "useNewUrlParser":true
+        }
+    }
+}
