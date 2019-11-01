@@ -55,7 +55,7 @@ const update = async(req,res)=>{
             const response = await User.findByIdAndUpdate(idp,objb);
             res.status(204).send(response);
         } catch (error) {
-            res.status(404).send(`${id} not found`);
+            res.status(404).send(`${idp} not found`);
         }
 
     };
@@ -65,7 +65,7 @@ const remove = async (req,res)=>{
             const response = await User.findByIdAndDelete(idp);
             res.send(204).send(response);
         } catch (error) {
-            res.status(404).send(`${id} not found`);
+            res.status(404).send(`${idp} not found`);
         }
     
       

@@ -85,7 +85,7 @@ const update = async(req,res)=>{
             const response = await keywords.findByIdAndUpdate(idp,objb);
             res.status(204).send(response);
         } catch (error) {
-            res.status(404).send(`${id} not found`);
+            res.status(404).send(`${idp} not found`);
         }
 
     };
@@ -95,7 +95,7 @@ const remove = async (req,res)=>{
             const response = await keywords.findByIdAndDelete(idp);
             res.send(204).send(response);
         } catch (error) {
-            res.status(404).send(`${id} not found`);
+            res.status(404).send(`${idp} not found`);
         }
     
       
