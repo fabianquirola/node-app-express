@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const keywordService = require('./api/keywords/service');
+const todoService = require('./api/todo/service');
 
 router.route('/about')
     .get((req,res)=>{
@@ -19,6 +20,18 @@ router.route('/keywords')
         {
             message:'Hello EJS',
             values: keywords
+        })
+    })
+
+
+router.route('/todos')
+    .get(async (req,res)=>{
+
+        const todos = await todoService.search();
+        res.render('templates/todos',
+        {
+            message:'Hello EJS',
+            values: todos
         })
     })
 

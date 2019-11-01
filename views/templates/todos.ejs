@@ -5,20 +5,27 @@
     <meta name="viewport" content="width=, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="/bootstrap.min.css">
-    <title>About</title>
+    <title>TODOS</title>
 </head>
 <body>
-    <%- include('../partials/header',{title:'About'})%>
-    <h1>about</h1>
+    <div class="container">
+
+        <%- include('../partials/header',{title:'KW'})%>
+        <div class="">
+
+        </div>
+    <h2>TODOS Page</h2>
     <p>
         <%=message%>
     </p>
     <ul>
         <%values.forEach(element => {%>
-            <li><%=element%></li>
-          
+            <li><span class="badge badge-primary"><%=element.description%></span></li>
+
         <%});%>
     </ul>
-    <%- include('../partials/footer',{text:'Footer About'})%>
+    <%- include('../partials/footer',{text:'KW Footer'})%>
+            
+</div>
 </body>
 </html>
