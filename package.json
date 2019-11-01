@@ -4,7 +4,7 @@
   "description": "express",
   "main": "index.js",
   "scripts": {
-    "test": "mocha --recursive",
+    "test": "cross-env NODE_ENV=test mocha --recursive --timeout 5000 --exit",
     "dev": "cross-env NODE_ENV=development nodemon index.js",
     "start": "cross-env NODE_ENV=production nodemon index.js"
   },
@@ -23,6 +23,7 @@
     "uuid": "^3.3.3"
   },
   "devDependencies": {
+    "chai-http": "^4.3.0",
     "cross-env": "^6.0.3",
     "mongodb-memory-server": "^6.0.1"
   }

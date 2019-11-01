@@ -22,3 +22,5 @@ database.connect();
 app.listen(port, host, ()=>{
     console.log(`http://${host}:${port}`);
 });
+
+module.exports = app;
